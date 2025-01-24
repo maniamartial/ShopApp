@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router';  
 import { CommonModule } from '@angular/common'; 
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http'; 
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, HttpClientModule],  
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css'],
+  imports: [CommonModule, NavbarComponent, HttpClientModule], 
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css'],
 })
-export class CategoriesComponent implements OnInit {
-  categories: any[] = [];
+export class ProductsComponent implements OnInit {
+  products: any[] = [];
   errorMessage: string | null = null;
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
-    this.productService.getCategories().subscribe(
+    this.productService.getAllProducts().subscribe(
       (data) => {
-        this.categories = data;
+        this.products = data;
       },
       (error) => {
         this.errorMessage = error;
@@ -29,7 +29,7 @@ export class CategoriesComponent implements OnInit {
     );
   }
 
-  onCategorySelect(categoryId: number): void {
-    this.router.navigate(['/category', categoryId]);
+  viewProductDetails(productId: number): void {
+    this.router.navigate(['/product/', productId]);
   }
 }

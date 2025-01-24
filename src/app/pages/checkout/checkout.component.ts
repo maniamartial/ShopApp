@@ -8,88 +8,88 @@ import { CommonModule } from '@angular/common';  // Import CommonModule
   standalone: true,
   imports: [NavbarComponent, FormsModule, CommonModule],  // Add CommonModule here
   template: `
-    <div class="min-h-screen bg-gray-100 p-6">
+    <div class="min-vh-100 bg-light p-4">
       <app-navbar></app-navbar>
       
       <!-- Checkout Header -->
-      <header class="text-center mb-10">
-        <h1 class="text-4xl font-bold text-gray-800">Checkout</h1>
-        <p class="text-lg text-gray-600 mt-4">Complete your order by providing your details.</p>
+      <header class="text-center mb-5">
+        <h1 class="display-4 text-dark">Checkout</h1>
+        <p class="lead text-muted">Complete your order by providing your details.</p>
       </header>
 
       <!-- Checkout Form -->
       <section>
-        <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="card shadow-lg rounded-3 p-4">
           <form (ngSubmit)="submitOrder()" #checkoutForm="ngForm">
             <!-- User Details -->
-            <div class="mb-4">
-              <label for="name" class="block text-gray-700 font-semibold">Full Name</label>
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 [(ngModel)]="userDetails.name"
-                class="w-full p-2 border rounded"
+                class="form-control"
                 required
               />
             </div>
 
-            <div class="mb-4">
-              <label for="email" class="block text-gray-700 font-semibold">Email</label>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 [(ngModel)]="userDetails.email"
-                class="w-full p-2 border rounded"
+                class="form-control"
                 required
               />
             </div>
 
-            <div class="mb-4">
-              <label for="address" class="block text-gray-700 font-semibold">Shipping Address</label>
+            <div class="mb-3">
+              <label for="address" class="form-label">Shipping Address</label>
               <textarea
                 id="address"
                 name="address"
                 [(ngModel)]="userDetails.address"
-                class="w-full p-2 border rounded"
+                class="form-control"
                 rows="4"
                 required
               ></textarea>
             </div>
 
             <!-- Order Summary -->
-            <div class="mt-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-4">Order Summary</h3>
-              <table class="min-w-full table-auto">
+            <div class="mt-4">
+              <h3 class="h5 text-dark mb-3">Order Summary</h3>
+              <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th class="px-4 py-2 text-left text-gray-700">Product</th>
-                    <th class="px-4 py-2 text-left text-gray-700">Price</th>
-                    <th class="px-4 py-2 text-left text-gray-700">Quantity</th>
-                    <th class="px-4 py-2 text-left text-gray-700">Total</th>
+                    <th class="text-start">Product</th>
+                    <th class="text-start">Price</th>
+                    <th class="text-start">Quantity</th>
+                    <th class="text-start">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let item of cartItems">
-                    <td class="px-4 py-2 text-gray-800">{{ item.name }}</td>
-                    <td class="px-4 py-2 text-gray-800">{{ item.price }}</td>
-                    <td class="px-4 py-2 text-gray-800">{{ item.quantity }}</td>
-                    <td class="px-4 py-2 text-gray-800">{{ item.total }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price | currency }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.total | currency }}</td>
                   </tr>
                 </tbody>
               </table>
-              <div class="mt-4 flex justify-between items-center">
-                <h2 class="text-xl font-bold text-gray-800">Total: {{ totalPrice }}</h2>
+              <div class="d-flex justify-content-between mt-4">
+                <h2 class="h4 text-dark">Total: {{ totalPrice | currency }}</h2>
               </div>
             </div>
 
             <!-- Checkout Button -->
-            <div class="mt-6">
+            <div class="mt-4">
               <button
                 type="submit"
                 [disabled]="!checkoutForm.valid"
-                class="bg-green-500 text-white px-6 py-2 rounded"
+                class="btn btn-success w-100"
               >
                 Complete Checkout
               </button>
@@ -107,23 +107,20 @@ export class CheckoutPageComponent {
     address: ''
   };
 
+  //Will replace with data from the cart : TODO
   cartItems = [
     { id: 1, name: 'Product 1', price: 100, quantity: 1, total: 100 },
     { id: 2, name: 'Product 2', price: 150, quantity: 2, total: 300 },
   ];
 
-  // Calculate the total price of the items in the cart
   get totalPrice(): number {
     return this.cartItems.reduce((sum, item) => sum + item.total, 0);
   }
 
-  // Submit the order
-  submitOrder() {
+=  submitOrder() {
     if (this.userDetails.name && this.userDetails.email && this.userDetails.address) {
-      // Here you would typically send the order details to your backend or API
       console.log('Order submitted:', this.userDetails);
       console.log('Cart items:', this.cartItems);
-      // Optionally, reset the form after submission
       this.userDetails = { name: '', email: '', address: '' };
       alert('Order submitted successfully!');
     } else {

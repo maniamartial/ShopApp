@@ -1,0 +1,27 @@
+<div class="min-vh-100 bg-light p-4">
+    <div *ngIf="categoryId" class="text-center mb-5">
+      <h1 class="display-4 fw-bold text-dark">Category: {{ categoryId }}</h1>
+      <p class="fs-4 text-muted">Explore products in this category.</p>
+    </div>
+  
+    <div *ngIf="products.length > 0">
+      <h2 class="text-3xl fw-bold text-dark text-center mb-6">Products</h2>
+      <!-- Product List -->
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
+        <div *ngFor="let product of products" class="col">
+          <div class="card shadow-lg rounded-3">
+            <img class="card-img-top" [src]="product.image" alt="Product Image" />
+            <div class="card-body">
+              <h5 class="card-title text-dark">{{ product.name }}</h5>
+              <p class="card-text text-muted">{{ product.price  }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+      <strong>Error:</strong> {{ errorMessage }}
+    </div>
+  </div>
+  

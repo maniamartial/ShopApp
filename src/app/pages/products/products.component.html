@@ -1,0 +1,22 @@
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <div *ngIf="products.length > 0; else noProducts" class="row">
+    <div class="col-12 col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card shadow-sm">
+        <img [src]="product.image" alt="{{ product.name }}" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+          <button (click)="viewProductDetails(product.id)" class="btn btn-primary btn-block">View Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noProducts>
+    <p class="text-center">No products available.</p>
+  </ng-template>
+  

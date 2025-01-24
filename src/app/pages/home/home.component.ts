@@ -1,47 +1,125 @@
-// src/app/pages/home/home.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../services/product.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { RouterModule } from '@angular/router';  // Import RouterModule
-import { CommonModule } from '@angular/common';  // Import CommonModule
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [NavbarComponent, RouterModule, CommonModule],  // Add CommonModule to imports
+  imports: [NavbarComponent, RouterModule, CommonModule, HttpClientModule,FormsModule],
   template: `
-    <div class="min-h-screen bg-gray-100 p-6">
+    <div class="min-vh-100 bg-light p-4">
       <app-navbar></app-navbar>
       
       <!-- Header Section -->
-      <header class="text-center mb-10">
-        <h1 class="text-5xl font-extrabold text-gray-800">Welcome to Our Store!</h1>
-        <p class="text-lg text-gray-600 mt-4">Explore the best products in our online store.</p>
-      </header>
+
+      <!-- Search Section -->
+      <section class="mb-5 text-center">
+        <input 
+          type="text" 
+          class="form-control w-50 mx-auto" 
+          placeholder="Search for a product..." 
+          [(ngModel)]="searchQuery" 
+          (input)="filterProducts()"
+        />
+      </section>
 
       <!-- Categories Section -->
-      <section class="mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Shop by Categories</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
-          <div *ngFor="let category of categories" class="bg-white shadow-lg rounded-lg overflow-hidden p-6">
-            <img class="w-full h-40 object-cover mb-4" [src]="category.image" alt="Category Image" />
-            <h3 class="text-lg font-semibold text-gray-800">{{ category.name }}</h3>
-            <button
-              class="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-              [routerLink]="['/category', category.id]"
-            >
-              View Products
-            </button>
+      <section class="mb-5">
+        <h2 class="h2 fw-bold text-dark text-center mb-4">Shop by Category</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div *ngFor="let category of categories | slice:0:6" class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-dark">{{ category.name }}</h5>
+                <button
+                  class="btn btn-secondary w-100"
+                  [routerLink]="['/category', category.id]"
+                >
+                  View Category
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-info" [routerLink]="'/categories'">View All Categories</button>
+        </div>
+      </section>
+
+      <!-- Products Section -->
+      <section class="mb-5">
+        <h2 class="h2 fw-bold text-dark text-center mb-4">Featured Products</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div *ngFor="let product of filteredProducts" class="col">
+            <div class="card h-100">
+              <img class="card-img-top" [src]="product.images[0]" alt="Product Image">
+              <div class="card-body">
+                <h5 class="card-title text-dark">{{ product.title }}</h5>
+                <p class="card-text text-muted">{{ product.description }}</p>
+                <button
+                  class="btn btn-primary w-100"
+                  [routerLink]="['/product', product.id]"
+                >
+                  View Product
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-info" [routerLink]="'/products'">View All Products</button>
         </div>
       </section>
     </div>
   `,
 })
-export class HomePageComponent {
-  categories = [
-    { id: '1', name: 'Category 1', image: 'https://via.placeholder.com/200x200' },
-    { id: '2', name: 'Category 2', image: 'https://via.placeholder.com/200x200' },
-    { id: '3', name: 'Category 3', image: 'https://via.placeholder.com/200x200' },
-    { id: '4', name: 'Category 4', image: 'https://via.placeholder.com/200x200' },
-  ];
+export class HomePageComponent implements OnInit {
+  products: any[] = []; 
+  categories: any[] = []; 
+  filteredProducts: any[] = []; 
+  searchQuery: string = ''; 
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.loadProducts(); 
+    this.loadCategories(); 
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts().subscribe(
+      (response) => {
+        this.products = response;  
+        this.filteredProducts = response; 
+      },
+      (error) => {
+        console.error('Error fetching products:', error); 
+      }
+    );
+  }
+
+  loadCategories(): void {
+    this.productService.getCategories().subscribe(
+      (response) => {
+        this.categories = response;  
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);  
+      }
+    );
+  }
+
+  filterProducts(): void {
+    if (this.searchQuery) {
+      this.filteredProducts = this.products.filter((product) =>
+        product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      this.filteredProducts = this.products;
+    }
+  }
 }

@@ -4,18 +4,29 @@ import { Component } from '@angular/core';
   selector: 'app-navbar',
   standalone: true,
   template: `
-    <nav class="bg-gray-800 text-white p-4 shadow-md">
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+      <div class="container-fluid">
         <!-- Logo Section -->
-        <div>
-          <a href="/" class="text-3xl font-bold text-white">Mania Store</a>
-        </div>
+        <a class="navbar-brand" href="/">Mania Store</a>
+
+        <!-- Toggler for mobile view -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
         <!-- Links Section -->
-        <div class="space-x-6">
-          <a href="/" class="text-lg hover:text-gray-400">Home</a>
-          <a href="/product" class="text-lg hover:text-gray-400">Products</a>
-          <a href="/cart" class="text-lg hover:text-gray-400">Cart</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/products">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/cart">Cart</a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

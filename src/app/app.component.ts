@@ -1,13 +1,17 @@
+
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';  // Import RouterModule
+
+// Import your components here
+import { HomePageComponent } from './pages/home/home.component';
+import { ProductPageComponent } from './pages/product/product.component';
+import {CartPageComponent} from "./pages/cart/cart.component"
+import {CheckoutPageComponent} from "./pages/checkout/checkout.component"
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterModule, HomePageComponent, ProductPageComponent, CartPageComponent, CheckoutPageComponent],  // Add routing and pages
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'shop-app';
-}
+export class AppComponent {}

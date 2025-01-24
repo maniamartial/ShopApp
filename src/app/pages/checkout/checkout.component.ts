@@ -117,7 +117,7 @@ export class CheckoutPageComponent {
     return this.cartItems.reduce((sum, item) => sum + item.total, 0);
   }
 
-=  submitOrder() {
+  submitOrder() {
     if (this.userDetails.name && this.userDetails.email && this.userDetails.address) {
       console.log('Order submitted:', this.userDetails);
       console.log('Cart items:', this.cartItems);

@@ -107,7 +107,6 @@ export class CheckoutPageComponent {
     address: ''
   };
 
-  //Will replace with data from the cart : TODO
   cartItems = [
     { id: 1, name: 'Product 1', price: 100, quantity: 1, total: 100 },
     { id: 2, name: 'Product 2', price: 150, quantity: 2, total: 300 },
@@ -117,7 +116,7 @@ export class CheckoutPageComponent {
     return this.cartItems.reduce((sum, item) => sum + item.total, 0);
   }
 
-  submitOrder() {
+  submitOrder(){
     if (this.userDetails.name && this.userDetails.email && this.userDetails.address) {
       console.log('Order submitted:', this.userDetails);
       console.log('Cart items:', this.cartItems);

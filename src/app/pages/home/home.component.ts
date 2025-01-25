@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 
       <!-- Welcome Section -->
       <section class="py-4 text-center bg-white shadow-sm mb-4">
-        <h4 class="text-dark fw-bold mb-2">Hi Tosh!</h4>
+        <h4 class="text-dark fw-bold mb-2">Hi Kyosk</h4>
         <div class="input-group w-50 mx-auto">
           <input 
             type="text" 

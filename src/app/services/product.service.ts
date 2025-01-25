@@ -14,6 +14,7 @@ interface Product {
   price: number;
   image: string;
   categoryId: number;
+  images: string[];
 }
 
 @Injectable({
@@ -55,6 +56,7 @@ export class ProductService {
       catchError(this.handleError)
     );
   }
+  
 
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error);

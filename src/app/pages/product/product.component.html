@@ -30,11 +30,10 @@
         <p><strong>Price:</strong> ${{ product.price }}</p>
 
         <!-- Add to Cart Button -->
-        <button 
-          class="btn btn-primary" 
-          (click)="addToCart(product)">
+        <button *ngIf="product" (click)="addToCart(product)" class="btn btn-primary">
           Add to Cart
         </button>
+        
       </div>
     </div>
   </div>

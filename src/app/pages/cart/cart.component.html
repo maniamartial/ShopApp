@@ -1,1 +1,53 @@
-<p>cart works!</p>
+<section *ngIf="cartItems.length > 0; else noItems">
+    <div class="bg-white shadow-sm rounded-3 p-4">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-left">Product</th>
+            <th class="text-left">Price</th>
+            <th class="text-left">Quantity</th>
+            <th class="text-left">Total</th>
+            <th class="text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>
+              <div class="d-flex align-items-center">
+                <img class="img-fluid w-25 h-25 rounded" [src]="item.image" alt="Product" />
+                <span class="ms-3 text-dark">{{ item.name }}</span>
+              </div>
+            </td>
+            <td>{{ item.price | currency }}</td>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="item.quantity"
+                (change)="updateQuantity(item.id, item.quantity)"
+                class="form-control w-25"
+                min="1"
+              />
+            </td>
+            <td>{{ item.total }}</td>
+            <td>
+              <button (click)="removeFromCart(item.id)" class="btn btn-danger btn-sm">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Cart Total -->
+      <div class="mt-4 d-flex justify-content-between align-items-center">
+        <h2 class="h5 text-dark">Total: {{ totalPrice }}</h2>
+        <button class="btn btn-primary btn-lg">Proceed to Checkout</button>
+      </div>
+    </div>
+  </section>
+  
+  <ng-template #noItems>
+    <div class="text-center text-muted">
+      <p>Your cart is empty!</p>
+    </div>
+  </ng-template>
+  

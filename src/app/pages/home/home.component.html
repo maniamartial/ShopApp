@@ -1,25 +1,55 @@
-<div class="container">
-    <h1>Welcome to ShopApp</h1>
-  
-    <h2>Categories</h2>
-    <div class="categories">
-      <button *ngFor="let category of categories" routerLink="/categories/{{category}}" class="btn btn-primary m-1">
-        {{ category }}
+<div class="min-vh-100 bg-light">
+  <app-navbar></app-navbar>
+
+  <!-- Welcome Section -->
+  <section class="py-4 text-center bg-white shadow-sm mb-4">
+    <h4 class="text-dark fw-bold mb-2">Hi Kyosk</h4>
+    <div class="input-group w-50 mx-auto">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Search for products..." 
+        [(ngModel)]="searchQuery" 
+        (input)="filterProducts()"
+      />
+      <button class="btn btn-primary">
+        <i class="bi bi-search"></i>
       </button>
     </div>
-  
-    <h2>Featured Products</h2>
-    <div class="row">
-      <div *ngFor="let product of products" class="col-md-4">
-        <div class="card">
-          <img [src]="product.image" class="card-img-top" alt="product image" />
-          <div class="card-body">
-            <h5 class="card-title">{{ product.title }}</h5>
-            <p class="card-text">${{ product.price }}</p>
-            <a [routerLink]="'/products/' + product.id" class="btn btn-primary">View Details</a>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="mb-5">
+    <h2 class="h2 fw-bold text-dark text-center mb-4">Shop by Category</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <button
+        *ngFor="let category of categories"
+        class="btn btn-outline-secondary"
+        (click)="filterByCategory(category.id)"
+      >
+        {{ category.name }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="mb-4">
+    <div class="container">
+      <h5 class="text-dark fw-bold mb-3">
+        {{ selectedCategoryName || 'All Products' }}
+      </h5>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+        <div *ngFor="let product of filteredProducts" class="col">
+          <div class="card h-100">
+            <img [src]="product.images[0]" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+              <h6 class="card-title text-dark">{{ product.title }}</h6>
+              <p class="text-success fw-bold">{{ product.price | currency:'KES' }}</p>
+              <button class="btn btn-primary w-100" [routerLink]="['/product', product.id]">View Details</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
+  </section>
+</div>

@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { FormsModule } from '@angular/forms';  
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common'; 
+import { Router } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [FormsModule, CommonModule, NavbarComponent], // Add CommonModule here
+  imports: [FormsModule, CommonModule, NavbarComponent, RouterModule], 
   template: `
     <div class="min-vh-100 bg-light p-4">
       <app-navbar></app-navbar>
@@ -62,7 +64,7 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 
           <div class="mt-4 d-flex justify-content-between align-items-center">
             <h2 class="h5 text-dark">Total: {{ totalPrice }}</h2>
-            <button class="btn btn-primary btn-lg">Proceed to Checkout</button>
+            <button class="btn btn-primary btn-lg"  [routerLink]="['/checkout']"            >Proceed to Checkout</button>
           </div>
         </div>
       </section>
@@ -96,4 +98,6 @@ export class CartPageComponent implements OnInit {
   removeFromCart(itemId: number): void {
     this.cartService.removeFromCart(itemId);
   }
+
+  
 }

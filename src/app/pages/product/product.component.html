@@ -2,14 +2,12 @@
 
 <div *ngIf="product; else loading">
   <div class="container mt-5">
-    <!-- Product details card -->
     <div class="row">
       <div class="col-md-6">
         <div class="card">
-          <!-- Main Product Image -->
+
           <img [src]="mainImage" class="card-img-top" alt="{{ product.name }}" />
         </div>
-        <!-- Additional images -->
         <div class="mt-3">
           <div class="row">
             <div *ngFor="let image of product.images" class="col-4 mb-2">
@@ -29,7 +27,6 @@
         <p><strong>Description:</strong> {{ product.description }}</p>
         <p><strong>Price:</strong> ${{ product.price }}</p>
 
-        <!-- Add to Cart Button -->
         <button *ngIf="product" (click)="addToCart(product)" class="btn btn-primary">
           Add to Cart
         </button>

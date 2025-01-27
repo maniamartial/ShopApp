@@ -54,7 +54,7 @@ export class ProductDetailsComponent implements OnInit {
       image: product.images[0],
       total: product.price, // Initial total = price * 1
     };
-    
+    // alert(cartItem.total)
     this.cartService.addToCart(cartItem);
     // alert(`${product.title} has been added to your cart!`);
   }

@@ -33,8 +33,8 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
               <tr *ngFor="let item of cartItems">
                 <td>
                   <div class="d-flex align-items-center">
-                    <img class="img-fluid w-25 h-25 rounded" [src]="item.image" alt="Product" />
-                    <span class="ms-3 text-dark">{{ item.name }}</span>
+                  <img class="img-fluid" [src]="item.image" alt="Product" style="max-width: 50px; max-height: 50px;" />
+                  <span class="ms-3 text-dark">{{ item.name }}</span>
                   </div>
                 </td>
                 <td>{{ item.price }}</td>
@@ -83,6 +83,7 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe((items) => {
+      console.log("Uko na ufala", items)
       this.cartItems = items;
       this.totalPrice = this.cartService.getTotalPrice();
     });

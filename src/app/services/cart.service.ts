@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -14,12 +15,21 @@ interface CartItem {
   providedIn: 'root',
 })
 export class CartService {
-  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
+  private cartItemsSubject = new BehaviorSubject<CartItem[]>(this.getCartFromLocalStorage());
   cartItems$ = this.cartItemsSubject.asObservable();
 
   constructor() {}
 
-  // Adds a product to the cart
+  // Realise on refresh it clears the cart, so I decided to store items on localstorage=>Should go to db/cache
+  private getCartFromLocalStorage(): CartItem[] {
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart) : [];
+  }
+
+  private saveCartToLocalStorage(cart: CartItem[]): void {
+    localStorage.setItem('cartItems', JSON.stringify(cart));
+  }
+
   addToCart(product: CartItem): void {
     const currentCart = this.cartItemsSubject.getValue();
     const existingItem = currentCart.find((item) => item.id === product.id);
@@ -30,30 +40,32 @@ export class CartService {
     } else {
       currentCart.push(product);
     }
+
+    this.saveCartToLocalStorage(currentCart); 
     this.cartItemsSubject.next(currentCart);
   }
 
-  // Updates the quantity of an item
   updateQuantity(itemId: number, quantity: number): void {
     const currentCart = this.cartItemsSubject.getValue();
     const item = currentCart.find((item) => item.id === itemId);
+
     if (item && quantity > 0) {
       item.quantity = quantity;
       item.total = item.price * quantity;
+      this.saveCartToLocalStorage(currentCart); 
       this.cartItemsSubject.next(currentCart);
     }
   }
 
-  // Removes an item from the cart
   removeFromCart(itemId: number): void {
     const updatedCart = this.cartItemsSubject
       .getValue()
       .filter((item) => item.id !== itemId);
 
+    this.saveCartToLocalStorage(updatedCart);
     this.cartItemsSubject.next(updatedCart);
   }
 
-  // Get total price of the cart
   getTotalPrice(): number {
     return this.cartItemsSubject
       .getValue()

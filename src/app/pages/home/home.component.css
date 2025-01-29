@@ -1,0 +1,13 @@
+.fixed-search {
+    position: fixed;
+    top: 40px; 
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    padding-top: 20px; 
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .margin-b{
+    margin-top:170px;
+  }

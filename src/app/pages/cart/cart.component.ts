@@ -77,6 +77,7 @@ import { RouterModule } from '@angular/router';
     </div>
   `,
 })
+
 export class CartPageComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice: number = 0;
@@ -85,7 +86,6 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe((items) => {
-      console.log("Uko na ufala", items)
       this.cartItems = items;
       this.totalPrice = this.cartService.getTotalPrice();
     });
@@ -99,5 +99,4 @@ export class CartPageComponent implements OnInit {
     this.cartService.removeFromCart(itemId);
   }
 
-  
 }

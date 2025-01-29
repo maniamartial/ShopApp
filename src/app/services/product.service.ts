@@ -38,6 +38,12 @@ export class ProductService {
     );
   }
 
+  getFeaturedProducts(): Observable<Product[]>{
+    return this.http.get<Product[]>(`${this.apiUrl}/products`).pipe(
+      catchError(this.handleError)
+    )
+  }
+  
   getProductsByCategory(categoryId: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`).pipe(
       catchError(this.handleError) 

@@ -8,6 +8,8 @@ import { CartService } from '../../services/cart.service';
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule],
+  styleUrls: ['./navbar.component.css'],
+
   template: `
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div class="container-fluid">
@@ -59,3 +61,4 @@ export class NavbarComponent implements OnInit {
     });
   }
 }
+

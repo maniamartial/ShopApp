@@ -27,7 +27,8 @@ When you first visit the site, you'll be greeted by the **Homepage**. Here, you 
 -   **Featured Products**: A selection of products that are featured and available for you to browse.
     
 -   **Product Categories**: A list of all available product categories. You can click on a category to see products related to it.
-    
+    ![image](https://github.com/user-attachments/assets/aec0c63f-9ad9-44b3-b7ad-ca7d54c44d16)
+
 
 ### How to use the Homepage:
 
@@ -68,7 +69,8 @@ Once you've clicked on a product from the homepage or search results, you'll be 
 -   **Price**: The price of the product.
     
 -   **Add to Cart Button**: A button to add the product to your shopping cart.
-    
+    ![image](https://github.com/user-attachments/assets/df664229-311b-4981-b010-f1659002f6d4)
+
 
 ### How to use the Product Details Page:
 
@@ -108,6 +110,7 @@ The **Cart Page** is where you can view all the items you've added to your shopp
     
 -   **Proceed to Checkout**: Once you're happy with the items in your cart, click on the "Proceed to Checkout" button to begin the checkout process.
     
+![image](https://github.com/user-attachments/assets/906b77bc-5c1a-421f-94d1-3d922b9f47a3)
 
 ----------
 
@@ -117,11 +120,13 @@ The **Checkout Page** is where you finalize your purchase. On this page, you wil
 
 ### How to use the Checkout Page:
 
-1.  **Review Your Cart**: Ensure that all the items in your cart are correct and that you are ready to purchase.
+1.  **Review Your Cart**:Work in Progress
     
 2.  **Enter Shipping Details**: Provide the necessary shipping information such as your name, address, and contact details.
     
 3.  **Complete Purchase**: After reviewing everything, click on the "Complete Purchase" button to finalize your order.
+   ![image](https://github.com/user-attachments/assets/34f9cdc0-395c-4937-8cb6-e911ad2c3b5c)
+
     
 ----------
 
